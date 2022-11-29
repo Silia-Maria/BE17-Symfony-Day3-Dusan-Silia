@@ -17,19 +17,20 @@ class RecipeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class, ["attr" => ["placeholder" => "Name", "class" => "form-control"]])
-            ->add('description', TextareaType::class, ["attr" => ["placeholder" => "Short description", "class" => "form-control"]])
-            ->add('image', TextType::class, ["attr" => ["placeholder" => "Image URL", "class" => "form-control"]])
-            ->add('serves', NumberType::class, ["attr" => ["placeholder" => "Serves", "class" => "form-control"]])
-            ->add('time', NumberType::class, ["attr" => ["placeholder" => "Duration", "class" => "form-control"]])
+            ->add('name', TextType::class, ["attr" => ["placeholder" => "Name", "class" => "form-control mb-2"]])
+            ->add('description', TextareaType::class, ["attr" => ["placeholder" => "Short description", "class" => "form-control mb-2"]])
+            ->add('image', TextType::class, ["attr" => ["placeholder" => "Image URL", "class" => "form-control mb-2"]])
+            ->add('serves', NumberType::class, ["attr" => ["placeholder" => "Serves", "class" => "form-control mb-2"]])
+            ->add('time', NumberType::class, ["attr" => ["placeholder" => "Duration", "class" => "form-control mb-2"]])
             ->add('difficulty', ChoiceType::class, [
                 'choices'  => [
                     'easy' => "easy",
                     'advanced' => "advanced",
                     'chef' => "chef",
-                ],
+
+                ], "attr" => ["class" => "form-control mb-2"]
             ])
-            ->add('link', TextType::class,  ["attr" => ["placeholder" => "Link to Recipe", "class" => "form-control"]])
+            ->add('link', TextType::class,  ["attr" => ["placeholder" => "Link to Recipe", "class" => "form-control mb-2"]])
             ->add('create', SubmitType::class,  ["attr" => ["class" => "btn btn-outline-dark", "value" => "create"]]);
     }
 

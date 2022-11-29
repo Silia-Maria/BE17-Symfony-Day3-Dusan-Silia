@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,8 +21,8 @@ class RecipeType extends AbstractType
             ->add('name', TextType::class, ["attr" => ["placeholder" => "Name", "class" => "form-control mb-2"]])
             ->add('description', TextareaType::class, ["attr" => ["placeholder" => "Short description", "class" => "form-control mb-2"]])
             ->add('image', TextType::class, ["attr" => ["placeholder" => "Image URL", "class" => "form-control mb-2"]])
-            ->add('serves', NumberType::class, ["attr" => ["placeholder" => "Serves", "class" => "form-control mb-2"]])
-            ->add('time', NumberType::class, ["attr" => ["placeholder" => "Duration", "class" => "form-control mb-2"]])
+            ->add('serves', IntegerType::class, ["attr" => ["placeholder" => "Serves", "class" => "form-control mb-2"]])
+            ->add('time', IntegerType::class, ["attr" => ["placeholder" => "Duration", "class" => "form-control mb-2"]])
             ->add('difficulty', ChoiceType::class, [
                 'choices'  => [
                     'easy' => "easy",

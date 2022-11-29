@@ -1,1 +1,5 @@
-{% extends 'base.html.twig' %} {% block title %}Hello RecipesController!{% endblock %} {% block body %} Edit {% endblock %}
+{% extends 'base.html.twig' %} {% block title %}Hello RecipesController!{% endblock %} {% block body %}
+<div class="container">
+    <h2>Edit Recipe</h2>
+
+    {{form_start(form)}} {{form_widget(form)}} {{form_end(form)}}</div> {% endblock %}

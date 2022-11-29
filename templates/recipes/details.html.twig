@@ -1,1 +1,18 @@
-{% extends 'base.html.twig' %} {% block title %}Hello RecipesController!{% endblock %} {% block body %} Details {% endblock %}
+{% extends 'base.html.twig' %} {% block title %}Hello RecipesController!{% endblock %} {% block body %}
+
+<div class="container">
+    <div class="row">
+        <img class="col-5 me-5" src="{{recipes.image}}" alt="">
+
+        <div class="col-6 text-end">
+            <h3>{{recipes.name}}</h3>
+            <hr>
+            <p>{{recipes.description}}</p>
+            <p>Serves: {{recipes.serves}}</p>
+            <p><i class="fa-regular fa-clock me-2"></i>{{recipes.time}} min</p>
+            <p>Difficulty: {{recipes.Difficulty}}</p>
+            <a href="{{recipes.link}}" target="_blank"><button class="btn btn-light"> Click for Recipe</button></a>
+        </div>
+    </div>
+</div>
+{% endblock %}

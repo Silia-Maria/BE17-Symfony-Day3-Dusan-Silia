@@ -2,17 +2,19 @@
 
 namespace App\Controller;
 
-use App\Entity\Recipes;
-
+use App\Form\RecipeType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
+use  Symfony\Component\HttpFoundation\Request;
+
+use App\Entity\Recipes;
 
 class RecipesController extends AbstractController
 {
     # Index -> homePage
-    #[Route('/recipes', name: 'app_recipes')]
+    #[Route('/recipes', name: 'recipes')]
     public function index(ManagerRegistry $doctrine): Response
     {
         $recipes = $doctrine->getRepository(Recipes::class)->findAll();
@@ -21,28 +23,59 @@ class RecipesController extends AbstractController
         ]);
     }
 
-    # Create
+    # Create 
     #[Route('/create', name: 'create')]
-    public function create(): Response
+    public function create(Request $request, ManagerRegistry $doctrine): Response
     {
-        return $this->render('recipes/create.html.twig', []);
+        $recipe = new Recipes();
+        $form = $this->createForm(RecipeType::class, $recipe);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $recipe = $form->getData();
+            $recipe->setCreateDate(new \DateTime('now'));
+            $em = $doctrine->getManager();
+            $em->persist($recipe);
+            $em->flush();
+            return $this->redirectToRoute('recipes');
+        }
+        return $this->render('recipes/create.html.twig', [
+            "form" => $form->createView()
+        ]);
     }
 
-    # Edit
+    # Edit 
     #[Route('/edit/{id}', name: 'edit')]
-    public function edit($id): Response
+    public function edit($id, Request $request, ManagerRegistry $doctrine): Response
     {
-        return $this->render('recipes/edit.html.twig', []);
+        $recipe = $doctrine->getRepository(Recipes::class)->find($id);
+        $form = $this->createForm(RecipeType::class, $recipe);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $recipe = $form->getData();
+            $recipe->setCreateDate(new \DateTime('now'));
+            $em = $doctrine->getManager();
+            $em->persist($recipe);
+            $em->flush();
+            return $this->redirectToRoute('recipes');
+        }
+        return $this->render('recipes/edit.html.twig', [
+            "form" => $form->createView()
+        ]);
     }
 
-    # Details
+    # Details 
     #[Route('/details/{id}', name: 'details')]
-    public function details($id): Response
+    public function details(ManagerRegistry $doctrine, $id): Response
     {
-        return $this->render('recipes/index.html.twig', []);
+        $recipes = $doctrine->getRepository(Recipes::class)->find($id);
+        return $this->render('recipes/details.html.twig', [
+            'recipes' => $recipes,
+        ]);
     }
 
-    # Delete
+    # Delete 
     #[Route('/delete/{id}', name: 'delete')]
     public function delete($id, ManagerRegistry $doctrine): Response
     {
@@ -50,6 +83,6 @@ class RecipesController extends AbstractController
         $recipe = $doctrine->getRepository(Recipes::class)->find($id);
         $em->remove($recipe);
         $em->flush();
-        return $this->redirectToRoute('index');
+        return $this->redirectToRoute('recipes');
     }
 }

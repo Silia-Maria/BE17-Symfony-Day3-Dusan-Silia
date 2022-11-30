@@ -41,6 +41,9 @@ class Recipes
     #[ORM\ManyToOne]
     private ?Status $fk_status = null;
 
+    #[ORM\ManyToOne]
+    private ?chefs $fk_chef = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -150,6 +153,18 @@ class Recipes
     public function setFkStatus(?Status $fk_status): self
     {
         $this->fk_status = $fk_status;
+
+        return $this;
+    }
+
+    public function getFkChef(): ?chefs
+    {
+        return $this->fk_chef;
+    }
+
+    public function setFkChef(?chefs $fk_chef): self
+    {
+        $this->fk_chef = $fk_chef;
 
         return $this;
     }

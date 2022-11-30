@@ -38,6 +38,9 @@ class Recipes
     #[ORM\Column(length: 255)]
     private ?string $link = null;
 
+    #[ORM\ManyToOne]
+    private ?Status $fk_status = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -135,6 +138,18 @@ class Recipes
     public function setLink(string $link): self
     {
         $this->link = $link;
+
+        return $this;
+    }
+
+    public function getFkStatus(): ?Status
+    {
+        return $this->fk_status;
+    }
+
+    public function setFkStatus(?Status $fk_status): self
+    {
+        $this->fk_status = $fk_status;
 
         return $this;
     }

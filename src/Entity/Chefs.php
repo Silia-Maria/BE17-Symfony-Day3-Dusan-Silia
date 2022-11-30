@@ -19,6 +19,9 @@ class Chefs
     #[ORM\Column(length: 255)]
     private ?string $origin = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $image = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +47,18 @@ class Chefs
     public function setOrigin(string $origin): self
     {
         $this->origin = $origin;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }

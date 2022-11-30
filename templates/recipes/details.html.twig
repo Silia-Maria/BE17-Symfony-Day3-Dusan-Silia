@@ -18,6 +18,9 @@
             {% else %}
             <p class="bg-warning">Difficulty: {{recipes.Difficulty}}</p>
             {% endif %}
+            <a href="/chefs/{{chef.id}}">
+                <p>chef: {{chef.name}}</p>
+            </a>
 
             <a href="{{recipes.link}}" target="_blank"><button class="btn btn-light w-100"> Click for Recipe</button></a>
         </div>

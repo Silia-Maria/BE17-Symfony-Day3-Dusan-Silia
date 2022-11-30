@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %} {% block title %}Hello ChefsController!{% endblock %} {% block body %}
+<div class="row row-cols-2 border border-dark">
+    <img src="{{chef.image}}" alt="">
+    <div>
+        <h1>{{chef.name}}</h1>
+    </div>
+</div>
+<div class="container mt-5">
+    <div class="row row-cols-3">
+        {% for recipe in recipes %}
+
+        <div class="col mb-4">
+            <div class="card">
+                <img src="{{asset('image/' ~ recipe.image)}}" class="card-img-top" alt="..." height="300">
+                <div class="card-body">
+                    <h5 class="card-title">{{recipe.name}}</h5>
+                    <p class="card-text"><i class="fa-regular fa-clock me-2"></i>{{recipe.time}}</p>
+
+                    <!--Buttons-->
+                    <a href="/details/{{recipe.id}}"><button type="button" class="btn btn-light">Details</button></a>
+                    <a href="/edit/{{recipe.id}}"><button type="button" class="btn btn-light">Edit</button></a>
+                    <a href="/delete/{{recipe.id}}"><button type="button" class="btn btn-light">Delete</button></a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

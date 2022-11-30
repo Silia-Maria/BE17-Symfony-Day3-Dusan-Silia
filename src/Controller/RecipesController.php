@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\RecipeType;
+use App\Entity\Chefs;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -107,8 +108,11 @@ class RecipesController extends AbstractController
     public function details(ManagerRegistry $doctrine, $id): Response
     {
         $recipes = $doctrine->getRepository(Recipes::class)->find($id);
+        $fk_chef = $recipes->getFkChef()->getId();
+        $chef = $doctrine->getRepository(Chefs::class)->find($fk_chef);
         return $this->render('recipes/details.html.twig', [
             'recipes' => $recipes,
+            'chef' => $chef,
         ]);
     }
 

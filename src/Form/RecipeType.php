@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Chefs;
 use App\Entity\Status;
 use App\Entity\Recipes;
 use Symfony\Component\Form\AbstractType;
@@ -49,7 +50,8 @@ class RecipeType extends AbstractType
                 ], "attr" => ["class" => "form-control mb-2"]
             ])
             ->add('link', TextType::class,  ["attr" => ["placeholder" => "Link to Recipe", "class" => "form-control mb-2"]])
-            ->add('fk_status', EntityType::class, ["class" => Status::class, "choice_label" => "name"])
+            ->add('fk_status', EntityType::class, ["label" => "status", "class" => Status::class, "choice_label" => "name"])
+            ->add('fk_chef', EntityType::class, ["label" => "Chef", "class" => Chefs::class, "choice_label" => "name"])
             ->add('create', SubmitType::class,  ["attr" => ["class" => "btn btn-outline-dark", "value" => "create"]]);
     }
 

@@ -2,16 +2,24 @@
 
 <div class="container">
     <div class="row">
-        <img class="col-5 me-5" src="{{recipes.image}}" alt="">
+        <img class="col-7" src="{{recipes.image}}" alt="">
 
-        <div class="col-6 text-end">
-            <h3>{{recipes.name}}</h3>
-            <hr>
+        <div class="col-5 ps-5 pt-5">
+            <h3 class="logo-font mb-3">{{recipes.name}}</h3>
+
             <p>{{recipes.description}}</p>
-            <p>Serves: {{recipes.serves}}</p>
+            <hr>
+            <p><i class="fa-regular fa-user"></i> {{recipes.serves}} Serves</p>
             <p><i class="fa-regular fa-clock me-2"></i>{{recipes.time}} min</p>
-            <p>Difficulty: {{recipes.Difficulty}}</p>
-            <a href="{{recipes.link}}" target="_blank"><button class="btn btn-light"> Click for Recipe</button></a>
+            {% if recipes.difficulty == "chef" %}
+            <p class="bg-danger">Difficulty: {{recipes.Difficulty}}</p>
+            {% elseif recipes.difficulty == "easy" %}
+            <p class="bg-success">Difficulty: {{recipes.Difficulty}}</p>
+            {% else %}
+            <p class="bg-warning">Difficulty: {{recipes.Difficulty}}</p>
+            {% endif %}
+
+            <a href="{{recipes.link}}" target="_blank"><button class="btn btn-light w-100"> Click for Recipe</button></a>
         </div>
     </div>
 </div>

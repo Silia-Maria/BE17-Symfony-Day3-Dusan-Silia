@@ -84,13 +84,31 @@ class RecipesController extends AbstractController
 
     # Edit 
     #[Route('/edit/{id}', name: 'edit')]
-    public function edit($id, Request $request, ManagerRegistry $doctrine): Response
+    public function edit($id, Request $request, ManagerRegistry $doctrine, SluggerInterface $slugger): Response
     {
         $recipe = $doctrine->getRepository(Recipes::class)->find($id);
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $image = $form->get('image')->getData();
+            if ($image) {
+                unlink($this->getParameter('image_directory') . "/" . $recipe->getImage());
+                $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $image->guessExtension();
+                try {
+                    $image->move(
+                        $this->getParameter('image_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                $recipe->setImage($newFilename);
+            }
+
             $recipe = $form->getData();
             $recipe->setCreateDate(new \DateTime('now'));
             $em = $doctrine->getManager();

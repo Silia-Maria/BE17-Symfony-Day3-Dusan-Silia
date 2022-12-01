@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %} {% block title %} {{recipes.name}}{% endblock %} {% block body %}
+
+<div class="container">
+    <div class="row">
+        <img class="col-7" src="{{asset('image/' ~ recipes.image)}}" alt="">
+
+        <div class="col-5 ps-5 pt-5">
+            <h3 class="logo-font mb-3">{{recipes.name}}</h3>
+
+            <p>{{recipes.description}}</p>
+            <hr>
+            <p><i class="fa-regular fa-user"></i> {{recipes.serves}} Serves</p>
+            <p><i class="fa-regular fa-clock me-2"></i>{{recipes.time}} min</p>
+            {% if recipes.difficulty == "chef" %}
+            <p class="bg-danger">Difficulty: {{recipes.Difficulty}}</p>
+            {% elseif recipes.difficulty == "easy" %}
+            <p class="bg-success">Difficulty: {{recipes.Difficulty}}</p>
+            {% else %}
+            <p class="bg-warning">Difficulty: {{recipes.Difficulty}}</p>
+            {% endif %}
+
+            <p>Recipe from: <a href="/chefs/{{chef.id}}">{{chef.name}}</a></p>
+
+
+            <a href="{{recipes.link}}" target="_blank"><button class="btn btn-light w-100"> Click for Recipe</button></a>
+        </div>
+    </div>
+</div>
+{% endblock %}

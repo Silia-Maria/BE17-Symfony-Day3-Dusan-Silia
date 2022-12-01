@@ -7,9 +7,15 @@
       </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="/recipes">Home</a>
-                <a class="nav-link" href="/create">Create new Recipe</a>
+                {% if is_granted("ROLE_ADMIN") %}<a class="nav-link active" aria-current="page" href="/admin/recipes">Home</a> {% else %}
+                <a class="nav-link active" aria-current="page" href="/user/">Home</a>{% endif %} {% if is_granted("ROLE_ADMIN") %}
+                <a class="nav-link" href="/admin/create">Create new Recipe</a> {% endif %}
             </div>
+
         </div>
     </div>
+    {% if (is_granted("ROLE_ADMIN")) or (is_granted("ROLE_USER")) %}
+    <a class="nav-link me-3 w-100" href="/logout"><i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Logout</a> {% endif %}
+
+
 </nav>

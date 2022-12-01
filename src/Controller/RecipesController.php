@@ -17,6 +17,7 @@ use App\Entity\Recipes;
 use App\Entity\Status;
 use Doctrine\Migrations\Version\State;
 
+#[Route('/admin')]
 class RecipesController extends AbstractController
 {
     # Index Function

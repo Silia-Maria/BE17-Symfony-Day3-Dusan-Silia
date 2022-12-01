@@ -44,4 +44,17 @@ class UserController extends AbstractController
             'chef' => $chef,
         ]);
     }
+
+    # If button already cooked is clicked:
+    #[Route('/update-status/{id}', name: 'update-status')]
+    public function alreadyCooked($id, ManagerRegistry $doctrine)
+    {
+        $recipe = $doctrine->getRepository(Recipes::class)->find($id);
+        $status = $doctrine->getRepository(Status::class)->find(2);
+        $recipe->setFkStatus($status);
+        $em = $doctrine->getManager();
+        $em->persist($recipe);
+        $em->flush();
+        return $this->redirectToRoute('app_user');
+    }
 }

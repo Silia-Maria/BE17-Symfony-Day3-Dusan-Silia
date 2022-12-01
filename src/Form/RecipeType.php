@@ -29,7 +29,7 @@ class RecipeType extends AbstractType
                 "label" => "Image (jpeg,jpg, png", 'mapped' => false,  'required' => false,
                 'constraints' => [
                     new File([
-                        'maxSize' => '10024k',
+                        'maxSize' => '500000000k',
                         'mimeTypes' => [
                             'image/jpg',
                             'image/png',

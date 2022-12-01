@@ -19,7 +19,7 @@ use Doctrine\Migrations\Version\State;
 
 class RecipesController extends AbstractController
 {
-    # Index -> homePage
+    # Index Function
     #[Route('/recipes', name: 'recipes')]
     public function index(ManagerRegistry $doctrine): Response
     {
@@ -46,7 +46,7 @@ class RecipesController extends AbstractController
         ]);
     }
 
-    # Create 
+    # Create Function
     #[Route('/create', name: 'create')]
     public function create(Request $request, ManagerRegistry $doctrine, SluggerInterface $slugger): Response
     {
@@ -82,7 +82,7 @@ class RecipesController extends AbstractController
         ]);
     }
 
-    # Edit 
+    # Edit Function
     #[Route('/edit/{id}', name: 'edit')]
     public function edit($id, Request $request, ManagerRegistry $doctrine, SluggerInterface $slugger): Response
     {
@@ -93,7 +93,10 @@ class RecipesController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $image = $form->get('image')->getData();
             if ($image) {
-                unlink($this->getParameter('image_directory') . "/" . $recipe->getImage());
+                if ($recipe->getImage() != NULL) {
+                    unlink($this->getParameter('image_directory') . "/" . $recipe->getImage());
+                }
+
                 $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
                 $newFilename = $safeFilename . '-' . uniqid() . '.' . $image->guessExtension();
@@ -121,7 +124,7 @@ class RecipesController extends AbstractController
         ]);
     }
 
-    # Details 
+    # Details Function
     #[Route('/details/{id}', name: 'details')]
     public function details(ManagerRegistry $doctrine, $id): Response
     {
@@ -134,7 +137,7 @@ class RecipesController extends AbstractController
         ]);
     }
 
-    # Delete 
+    # Delete Function
     #[Route('/delete/{id}', name: 'delete')]
     public function delete($id, ManagerRegistry $doctrine): Response
     {
